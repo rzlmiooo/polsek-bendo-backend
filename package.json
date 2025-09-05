@@ -4,8 +4,8 @@
   "main": "index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --experimental-modules index.mjs",
-    "start": "node index.mjs"
+    "dev": "bun run --watch index.mjs",
+    "start": "bun index.mjs"
   },
   "author": "",
   "license": "ISC",
