@@ -10,14 +10,23 @@ dotenv.config();
 
 const DATABASE_URL = process.env.POSTGRES_URL
 
+const dialectOptions = {};
+
+if (process.env.CA_CERT) {
+  dialectOptions.ssl = {
+    require: true,
+    ca: process.env.CA_CERT
+  };
+} else if (process.env.NODE_ENV === 'production') {
+  dialectOptions.ssl = {
+    require: true,
+    rejectUnauthorized: false
+  };
+}
+
 const sequelize = new Sequelize(DATABASE_URL, {
   dialect: "postgres",
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
+  dialectOptions: dialectOptions,
   define: {
     schema: 'public',
   },

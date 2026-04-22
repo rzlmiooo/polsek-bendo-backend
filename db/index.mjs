@@ -11,10 +11,7 @@ const POSTGRES_URL = process.env.POSTGRES_URL ;
 const pool = new Pool({
   
   connectionString: process.env.POSTGRES_URL,
-  ssl: {
-    require: true,
-    rejectUnauthorized: false
-  }
+  ssl: process.env.NODE_ENV === 'production' ? { require: true, rejectUnauthorized: false } : false
 });
 
 
