@@ -3,6 +3,8 @@ import userModel from '../models/userModel.mjs';
 import dotenv from 'dotenv';
 import pg from 'pg';
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 
 const Pool = pg.Pool
 
