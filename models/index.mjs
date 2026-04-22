@@ -10,29 +10,12 @@ dotenv.config();
 
 const DATABASE_URL = process.env.POSTGRES_URL
 
-const dialectOptions = {};
-
-console.log("==== DATABASE SSL CONFIG DEBUG ====");
-console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("Is CA_CERT present?", !!process.env.CA_CERT);
-
-if (process.env.CA_CERT) {
-  console.log("CA_CERT Length:", process.env.CA_CERT.length);
-  console.log("CA_CERT Starts with:", process.env.CA_CERT.substring(0, 30));
-  console.log("CA_CERT Ends with:", process.env.CA_CERT.substring(process.env.CA_CERT.length - 30));
-  console.log("Includes literal \\n?", process.env.CA_CERT.includes('\\n'));
-  console.log("Includes actual newline?", process.env.CA_CERT.includes('\n'));
-  
-  dialectOptions.ssl = {
-    require: true,
-    ca: process.env.CA_CERT.replace(/\\n/g, '\n')
-  };
-} else if (process.env.NODE_ENV === 'production') {
-  dialectOptions.ssl = {
+const dialectOptions = {
+  ssl: {
     require: true,
     rejectUnauthorized: false
-  };
-}
+  }
+};
 
 const sequelize = new Sequelize(DATABASE_URL, {
   dialect: "postgres",
