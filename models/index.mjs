@@ -15,7 +15,7 @@ const dialectOptions = {};
 if (process.env.CA_CERT) {
   dialectOptions.ssl = {
     require: true,
-    ca: process.env.CA_CERT
+    ca: process.env.CA_CERT.replace(/\\n/g, '\n')
   };
 } else if (process.env.NODE_ENV === 'production') {
   dialectOptions.ssl = {
